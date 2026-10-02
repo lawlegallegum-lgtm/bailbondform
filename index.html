@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form No. 45 – Bail Bond (Legal/A4 Print/PDF)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: #e8e8e8;
+      color: #000;
+      padding: 20px;
+      font-size: 14.5px;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #111;
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .toolbar h1 {
+      font-size: 17px;
+      margin-right: auto;
+      font-weight: 600;
+    }
+    .toolbar button {
+      background: #38a169;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .toolbar button:hover { background: #2f855a; }
+    .toolbar button.secondary { background: #4a5568; }
+    .toolbar button.secondary:hover { background: #2d3748; }
+    .hint {
+      font-size: 13px;
+      opacity: 0.85;
+      width: 100%;
+    }
+
+    .pages { max-width: 210mm; margin: 0 auto; }
+    .page {
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 13mm 12mm;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    h1.form-title {
+      text-align: center;
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+    h2.form-subtitle {
+      text-align: center;
+      font-size: 14.5px;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .section-ref {
+      text-align: center;
+      font-size: 13px;
+      margin: 7px 0 14px;
+    }
+
+    .header-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 18px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .field-group label {
+      font-size: 13px;
+      color: #222;
+    }
+
+    /* ===== INPUT FIELDS 18px ===== */
+    input[type="text"] {
+      border: none;
+      border-bottom: 1.8px dotted #333;
+      background: #f0f7ff;
+      padding: 3px 4px;
+      font-family: inherit;
+      font-size: 18px;              /* 18px as requested */
+      font-weight: 500;
+      width: 100%;
+      outline: none;
+      color: #000;
+    }
+    input:focus {
+      background: #dbeafe;
+      border-bottom-color: #1d4ed8;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 14px 0 11px;
+      text-decoration: underline;
+    }
+
+    .para {
+      margin-bottom: 11px;
+      text-align: justify;
+      font-size: 14.5px;
+      line-height: 1.8;
+      word-spacing: 0.4px;
+    }
+
+    /* ===== INLINE BLANKS 18px ===== */
+    .inline {
+      display: inline;
+      border: none;
+      border-bottom: 1.8px dotted #333;
+      background: #f0f7ff;
+      padding: 0 3px 2px;
+      margin: 0 2px;
+      font-family: inherit;
+      font-size: 18px;              /* 18px as requested */
+      font-weight: 500;
+      outline: none;
+      vertical-align: baseline;
+      height: 1.35em;
+      color: #000;
+    }
+    .inline:focus {
+      background: #dbeafe;
+      border-bottom-color: #1d4ed8;
+    }
+    .inline.w40  { width: 52px;  min-width: 52px; }
+    .inline.w60  { width: 78px;  min-width: 78px; }
+    .inline.w80  { width: 105px; min-width: 105px; }
+    .inline.w100 { width: 130px; min-width: 130px; }
+    .inline.w120 { width: 155px; min-width: 155px; }
+    .inline.w140 { width: 180px; min-width: 180px; }
+    .inline.w160 { width: 200px; min-width: 200px; }
+    .inline.w180 { width: 230px; min-width: 230px; }
+    .inline.w220 { width: 280px; min-width: 280px; }
+    .inline.full {
+      display: block;
+      width: 100%;
+      margin-top: 4px;
+      margin-bottom: 3px;
+    }
+
+    .sig-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+      align-items: flex-end;
+    }
+    .sig-box { width: 42%; }
+    .sig-line {
+      border-bottom: 1px solid #222;
+      height: 32px;
+      margin-top: 4px;
+    }
+    hr.divider {
+      border: none;
+      border-top: 1px solid #999;
+      margin: 20px 0;
+    }
+
+    .affidavit h1 {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
+    .affidavit ol {
+      margin: 10px 0 14px 18px;
+      padding: 0;
+    }
+    .affidavit li {
+      margin-bottom: 12px;
+      text-align: justify;
+      font-size: 14.5px;
+      line-height: 1.8;
+    }
+    .deponent {
+      text-align: right;
+      margin-top: 24px;
+      font-weight: bold;
+      font-size: 14.5px;
+    }
+    .deponent .sig-line {
+      width: 180px;
+      margin-left: auto;
+    }
+    .verification {
+      margin-top: 26px;
+    }
+    .verification h3 {
+      font-size: 14.5px;
+      text-decoration: underline;
+      margin-bottom: 8px;
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 9mm 10mm;
+      }
+      body {
+        background: white;
+        padding: 0;
+        font-size: 14px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .toolbar { display: none !important; }
+      .pages { max-width: none; margin: 0; }
+      .page {
+        width: auto;
+        min-height: auto;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .page:last-child { page-break-after: auto; }
+
+      input[type="text"],
+      .inline {
+        border: none !important;
+        border-bottom: 1.5px dotted #222 !important;
+        background: transparent !important;
+        padding: 0 2px !important;
+        color: #000 !important;
+        font-size: 18px !important;     /* 18px in print too */
+        font-weight: 500 !important;
+        -webkit-appearance: none;
+      }
+      input::placeholder,
+      .inline::placeholder { color: transparent !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <h1>Form No. 45 – Bail Bond & Affidavit </h1>
+    <button onclick="window.print()">Print / Save as A4 PDF</button>
+<div id="pdf-content"></div>
+    <button class="secondary" onclick="clearAll()">Clear All Fields</button>
+    <div class="hint">
+      Fill the fields → Click “Print / Save as A4 PDF” → Choose “Save as PDF”. Best in Chrome / Edge.
+    </div>
+  </div>
+
+  <div class="pages">
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <h1 class="form-title">FORM NO. 45</h1>
+      <h2 class="form-subtitle">Bond and Bail Bond for Attendance Before</h2>
+      <h2 class="form-subtitle">Office Incharge of Police Station or Court</h2>
+      <div class="section-ref">(Section 436, 437, 438 (3) and 441)</div>
+
+      <div class="header-grid">
+        <div class="field-group" style="grid-column: 1 / -1;">
+          <label>In the court of Shri</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Court" placeholder="Court Name"> 
+
+        </div>
+        <div class="field-group">
+          <label>Police Station</label>
+         <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Ps" placeholder="Police Station"> 
+
+        </div>
+        <div class="field-group">
+          <label>Next date of hearing</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;" id="Next Date" placeholder="DD/MM/YEAR"> 
+
+        </div>
+        <div class="field-group">
+          <label>Under Section</label>
+         <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Section" placeholder="Section BNS/IPC"> 
+
+        </div>
+        <div class="field-group">
+          <label>Sent to Jail on</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Jaildate" placeholder="DD/YY/MM"> 
+
+        </div>
+        <div class="field-group">
+          <label>F.I.R. No.</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;" id="FIR" placeholder="FIR NO"> 
+        </div>
+      </div>
+
+      <div class="section-title">Bail Bond</div>
+
+      <p class="para">
+        I <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="accusedname" placeholder="Full Name Of Accused"> 
+ 
+        Son of Shri <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="accusedfather" placeholder="Father'S Name"> 
+
+        R/o/Villege/City Of Accused <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w140" id="depAddress"placeholder="Villege City">
+        District <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="District">
+        Ward No/House No/Street <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w180" id="depAddress"placeholder="Ward No/H.N0   /Street">
+        Pin Code <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="Pin Code">
+        State/Country <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="State">having been arrested or detained without warrant by the Officer In charge of 
+        <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="arrestps" placeholder="Police Station">
+
+        Police Station for having been brought before this Honorable Court charged with the offence of 
+        <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w220" id="Offence" placeholder="offence">
+ 
+        and required to give surety for my attendance before such Officer or Court on condition that I shall attend 
+        such Officer or Court on every day on which any investigation or trial is held with regard to such charge 
+        and in case of my making default herein myself to forfeit to Government the sum of Rs. 
+       <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w100" id="accusedamount" placeholder="Amount">
+
+      </p>
+
+      <div class="sig-row">
+        <div class="sig-box">
+          <strong>Place:</strong> <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="place1" placeholder="Enter Place name"><br><br>
+          DATED<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w80" id="bonddate1" placeholder="Date">
+
+        </div>
+        <div class="sig-box" style="text-align:right;">
+           <b><p Style= "Font Size: 20px;">Signature of Accused</b></p>
+          <div class="sig-line"></div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <p class="para">
+        I <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="SuretyName" placeholder="Full Name Of Surety"> 
+        Son of Shri <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="accusedfather" placeholder="Father'S Name Of Surety"> 
+        Residence  R/o/Villege/City Of Accused <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w140" id="depAddress"placeholder="Villege City">
+        District <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="District">
+        Ward No/House No/Street <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w180" id="depAddress"placeholder="Ward No/H.N0   /Street">
+        Pin Code <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="Pin Code">
+        State/Country <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="State">hereby declare myself for the above said Shri 
+       <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Suretyfor" placeholder="Name Of accused">
+        That he shall attend the Officer-in-charge of 
+        <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Suretyps" placeholder=" Surety Police Station">
+        Police Station or the Court of Shri 
+     <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Surety Court Name " placeholder="Court Name">
+        every day on which any investigation in the charge is made or any trial on such charge is held that he 
+        shall be and re-appear before such officer or court for the purpose of such investigation to answer the 
+        charge against him (as the case may be) and in the case of his making default herein I have bind myself 
+        to forfeit to Govt. the sum of Rs. 
+        <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Suretybndamount" placeholder="Amount">.
+      </p>
+
+      <p class="para" style="margin-top: 12px;">
+        DATED<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w80" id="bonddate1" placeholder="Date"></p>
+
+      <div class="sig-row">
+        <div class="sig-box"></div>
+        <div class="sig-box" style="text-align:right;">
+          <b><p Style= "Font Size: 20px;">Signature of Surety</b></p>
+          <div class="sig-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 : AFFIDAVIT -->
+    <div class="page affidavit">
+      <h1>AFFIDAVIT</h1>
+
+      <p class="para">
+        I<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="Name">
+        son / daughter / wife of <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="Father Name">
+        Aged about <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w80" id="depAddress" placeholder="Age">
+
+        R/o/Villege/City <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w160" id="depAddress" placeholder="Villege City">
+        District <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="District">
+        Ward No/House No/Street <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w180" id="depAddress"placeholder="Ward No/H.N0   /Street">
+        Pin Code <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="Pin Code">
+        State/Country <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="State">
+         do hereby solemnly affirm and declare as under:
+      </p>
+
+      <ol>
+        <li>
+          That deponent is the resident of above said address and having his/her Aadhar Card no. is 
+          <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Aadhar Card No " placeholder="Aadhar Card No">
+
+          and Election Card No. <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Aadhar Card No " placeholder="Voter No">
+
+        </li>
+        <li>
+          That accused is<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Realtion" placeholder="E.g Son Brother">
+ 
+          of the deponent and deponent has full control over him/her and capable to produce him/her before this hon’ble court.
+        </li>
+        <li>
+          That deponent is working as <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w140"id="occupation" placeholder="occupation">
+          at <input type="Place Of Work " Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Realtion" placeholder="Place of Work">
+
+          T/C. No. <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w80" id="Tc/No" placeholder="T.c No">
+
+          earns Rs.<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="Permonth" placeholder="Per Month Income">
+
+        </li>
+        <li>
+          That deponent is the owner of household articles valued about of Rs. 
+          <input <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Household" placeholder="e.g Value">
+
+        </li>
+        <li>
+          That deponent is the owner of the immovable property bearing No. 
+          <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Propety No" placeholder="Property No">
+
+          Measuring <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Property Area" placeholder="Property Area">
+ 
+          sq. yards situated at<input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w160" id="Location" placeholder="Location">
+
+          valued not less than Rs. <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Property Value" placeholder="Value">
+
+        </li>
+        <li>
+          That deponent undertakes to produce the accused before the honourable court on every date of hearing.
+        </li>
+        <li>
+          That I have an F.D.R. No. <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Fdr No" placeholder="FDR NO">
+
+          Issued by <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Fdr No" placeholder="Bank Issuer">
+
+
+          For Rs.  Issued by <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="Fdr No" placeholder="Amount">
+        </li>
+        <li>
+          That I own a vehicle No.  Issued by <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Vecile" placeholder="Vechicle No "> 
+          make <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="vechmake" placeholder="Vechicle Make"> 
+          R/C no <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Rcno" placeholder="Rc No">
+          at present valued not less than Rs. <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="Value" placeholder="Amount "> 
+
+        </li>
+      </ol>
+
+      <div class="deponent">
+        DEPONENT
+        <div class="sig-line"></div>
+      </div>
+
+      <div class="verification">
+        <h3>VERIFICATION</h3>
+        <p class="para">
+          Verified at <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w120" id="place2" placeholder="Place Name"> 
+
+          on this <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w60" id="verday" placeholder="day"> 
+
+          day of 20<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w40" id="veryear" placeholder="year"> 
+ 
+          that the contents of this Affidavit are true and correct to the best of my knowledge &amp; nothing 
+          material has been concealed therefrom, no part of it is untrue.
+        </p>
+        <div class="deponent">
+          DEPONENT
+          <div class="sig-line"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+ <div class="pages">
+
+   <!-- PAGE 3 -->
+    <div class="page">
+<p>___</p>
+
+<!-- PAGE BREAK HERE -->
+<div style="break-after: page; page-break-after: always;"></div>
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><h1 class="form-title">FORM NO. 45</p></h1>
+      <h2 class="form-subtitle">Bond and Bail Bond for Attendance Before</h2>
+      <h2 class="form-subtitle">Office Incharge of Police Station or Court</h2>
+      <div class="section-ref">(Section 436, 437, 438 (3) and 441)</div>
+
+      <div class="header-grid">
+        <div class="field-group" style="grid-column: 1 / -1;">
+          <label>In the court of Shri</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Court" placeholder="Court Name"> 
+
+        </div>
+        <div class="field-group">
+          <label>Police Station</label>
+         <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Ps" placeholder="Police Station"> 
+
+        </div>
+        <div class="field-group">
+          <label>Next date of hearing</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;" id="Next Date" placeholder="DD/MM/YEAR"> 
+
+        </div>
+        <div class="field-group">
+          <label>Under Section</label>
+         <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Section" placeholder="Section BNS/IPC"> 
+
+        </div>
+        <div class="field-group">
+          <label>Sent to Jail on</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;"id="Jaildate" placeholder="DD/YY/MM"> 
+
+        </div>
+        <div class="field-group">
+          <label>F.I.R. No.</label>
+          <input type="text" Style="Font-Weight:bold;font-size:20px;" id="FIR" placeholder="FIR NO"> 
+        </div>
+      </div>
+
+      <div class="section-title">Bail Bond</div>
+
+      <p class="para">
+        I <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="accusedname" placeholder="Full Name Of Accused"> 
+ 
+        Son of Shri <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="accusedfather" placeholder="Father'S Name"> 
+
+        R/o/Villege/City Of Accused <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w140" id="depAddress"placeholder="Villege City">
+        District <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="District">
+        Ward No/House No/Street <input type="text" Style="Font-Weight:bold;font-size:20px;"class="inline w180" id="depAddress"placeholder="Ward No/H.N0   /Street">
+        Pin Code <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="Pin Code">
+        State/Country <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w180" id="depAddress" placeholder="State">having been arrested or detained without warrant by the Officer In charge of 
+        <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="arrestps" placeholder="Police Station">
+
+        Police Station for having been brought before this Honorable Court charged with the offence of 
+        <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w220" id="Offence" placeholder="offence">
+ 
+        and required to give surety for my attendance before such Officer or Court on condition that I shall attend 
+        such Officer or Court on every day on which any investigation or trial is held with regard to such charge 
+        and in case of my making default herein myself to forfeit to Government the sum of Rs. 
+       <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w100" id="accusedamount" placeholder="Amount">
+
+      </p>
+
+      <div class="sig-row">
+        <div class="sig-box">
+          <strong>Place:</strong> <input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w140" id="place1" placeholder="Enter Place name"><br><br>
+          DATED<input type="text" Style="Font-Weight:bold;font-size:20px;" class="inline w80" id="bonddate1" placeholder="Date">
+
+        </div>
+        <div class="sig-box" style="text-align:right;">
+           <b><p Style= "Font Size: 20px;">Signature of Accused</b></p>
+          <div class="sig-line"></div>
+        </div>
+      </div>
+
+  <script>
+    function clearAll() {
+      if (confirm("Clear all filled fields?")) {
+        document.querySelectorAll("input").forEach(el => el.value = "");
+      }
+    }
+    document.getElementById("year").placeholder = new Date().getFullYear().toString().slice(-2);
+    document.getElementById("verYear").placeholder = new Date().getFullYear().toString().slice(-2);
+  </script>
+</body>
+</html>
